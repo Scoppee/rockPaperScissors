@@ -44,15 +44,15 @@ function playRound(theHumanChoice, theComputerChoice) {
     }
 }
 
-const compChoice = getComputerChoice();
-const humChoice = getHumanChoice();
+for (let i = 0; i < 5; i++) {
+    const compChoice = getComputerChoice();
+    const humChoice = getHumanChoice();
 
-playRound(humChoice, compChoice);
+    playRound(humChoice, compChoice); 
+    
+    console.log(humanScore);
+    console.log(computerScore);
+    console.log(humChoice)
+    console.log(compChoice)
+}
 
-
-
-
-console.log(humanScore);
-console.log(computerScore);
-console.log(humChoice)
-console.log(compChoice)
