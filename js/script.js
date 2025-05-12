@@ -50,9 +50,16 @@ for (let i = 0; i < 5; i++) {
 
     playRound(humChoice, compChoice); 
     
-    console.log(humanScore);
-    console.log(computerScore);
-    console.log(humChoice)
-    console.log(compChoice)
+    console.log("Your Score: " + humanScore);
+    console.log("Computer Score: " + computerScore);
+    console.log("Your Choice: " + humChoice)
+    console.log("Computer Choice: " + compChoice)
 }
 
+if (humanScore > computerScore){
+    console.log("You won the tournament")
+}else if (humanScore === computerScore){
+    console.log("It's a tie")
+}else{
+    console.log("Computer Won")
+}
