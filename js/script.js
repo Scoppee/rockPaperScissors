@@ -1,5 +1,13 @@
 let humanScore = 0;
 let computerScore = 0;
+        
+let manScore = document.querySelector(".humanScore");
+let robotScore = document.querySelector(".computerScore");
+let commentary = document.querySelector(".comment");
+let playAgain = document.querySelector(".playagain");
+
+manScore.textContent = humanScore;
+robotScore.textContent = computerScore;
 
 
 
@@ -18,48 +26,56 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    const promptHuman = prompt("Enter Your Choice. (Rock, Paper, or Scissors)");
-    const humanChoice = promptHuman.toLowerCase();
-    return humanChoice ;
-}
-
 
 
 function playRound(theHumanChoice, theComputerChoice) {
-    if(theComputerChoice === "paper" && theHumanChoice === "rock"){
+    let comment;
+    if((theComputerChoice === "paper" && theHumanChoice === "rock") || (theComputerChoice === "rock" && theHumanChoice === "scissors") || (theComputerChoice === "scissors" && theHumanChoice === "paper")){
         computerScore += 1;
-    }else if(theComputerChoice === "rock" && theHumanChoice === "scissors"){
-        computerScore += 1;
-    }else if(theComputerChoice === "scissors" && theHumanChoice === "paper"){
-        computerScore += 1;
-    }else if(theComputerChoice === "rock" && theHumanChoice === "paper"){
+        return comment = "Computer Wins this round"
+    }else if((theComputerChoice === "rock" && theHumanChoice === "paper") || (theComputerChoice === "scissors" && theHumanChoice === "rock") || (theComputerChoice === "paper" && theHumanChoice === "scissors")){
         humanScore += 1;
-    }else if(theComputerChoice === "scissors" && theHumanChoice === "rock"){
-        humanScore += 1;
-    }else if(theComputerChoice === "paper" && theHumanChoice === "scissors"){
-        humanScore += 1;
+        return comment = "You Win this round"
     }else{
-        return
+        return comment = "It's a draw"   
     }
 }
 
-for (let i = 0; i < 5; i++) {
-    const compChoice = getComputerChoice();
-    const humChoice = getHumanChoice();
 
-    playRound(humChoice, compChoice); 
-    
-    console.log("Your Score: " + humanScore);
-    console.log("Computer Score: " + computerScore);
-    console.log("Your Choice: " + humChoice)
-    console.log("Computer Choice: " + compChoice)
-}
+    const buttons = document.querySelectorAll(".rps")
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", () => {
+            let humanChoice;
+            if (i === 0){
+                humanChoice = "rock";
+            }else if ( i === 1){
+                humanChoice = "paper";
+            }else{
+                humanChoice = "scissors";
+            }
+            const computerChoice = getComputerChoice();
+            let comment = playRound(humanChoice, computerChoice);
+            manScore.textContent = humanScore;
+            robotScore.textContent = computerScore;        
+            if (humanScore === 5){
+                humanScore = 0;
+                computerScore = 0;
+                commentary.textContent = `Congratulations, You Won the tournament`;
+            }else if(computerScore === 5){
+                humanScore = 0;
+                computerScore = 0;
+                commentary.textContent = `Oops, Computer won this time. Play again to exact your revenge`;
+            }else{
+                commentary.textContent = `Your choice is ${humanChoice} and the computer chose ${computerChoice}. ${comment}`;
+            }
+        })
+        
+    }
 
-if (humanScore > computerScore){
-    console.log("You won the tournament")
-}else if (humanScore === computerScore){
-    console.log("It's a tie")
-}else{
-    console.log("Computer Won")
-}
+    playAgain.addEventListener("click", () => {
+        humanScore = 0;
+        computerScore = 0;
+        manScore.textContent = 0;
+        robotScore.textContent = 0;
+        commentary.textContent = ""
+    })
